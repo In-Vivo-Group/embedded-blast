@@ -15,9 +15,8 @@ This project develops a novel approach to sequence similarity searching in bioin
 7. [Usage](#usage)
 8. [Building and Running with Docker](#building-and-running-with-docker)
 9. [Contributing](#contributing)
-10. [Roadmap](#roadmap)
-11. [License](#license)
-12. [Contact](#contact)
+10. [License](#license)
+11. [Contact](#contact)
 
 ## Background
 
