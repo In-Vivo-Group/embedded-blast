@@ -166,19 +166,15 @@ We welcome contributions to the BLAST in Embedding Space project! Please follow 
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
-## Roadmap
-
-[Roadmap content remains the same as in the original README]
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Contact
 
-Your Name - your.email@example.com
+Alexander Titus - Send me a note on [LinkedIn](https://www.linkedin.com/in/alexandertitus/)
 
-Project Link: [https://github.com/yourusername/blast-embedding](https://github.com/yourusername/blast-embedding)
+Project Link: [https://github.com/In-Vivo-Group/embedded-blast](https://github.com/In-Vivo-Group/embedded-blast)
 
 ## Acknowledgments
 
