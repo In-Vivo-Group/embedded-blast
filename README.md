@@ -38,14 +38,6 @@ Our approach consists of several key components:
 
 5. **Database Indexing**: We create an efficient index of the embedded database sequences to enable rapid searching.
 
-## Project Goals
-
-1. Develop a new BLAST-like algorithm that operates on sequence embeddings
-2. Improve search speed and sensitivity compared to traditional BLAST
-3. Create a user-friendly interface for the new algorithm
-4. Benchmark the performance against standard BLAST implementations
-5. Publish findings in a peer-reviewed journal
-
 ## Project Structure
 
 The repository is organized as follows:
