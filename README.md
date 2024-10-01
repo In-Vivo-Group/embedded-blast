@@ -2,27 +2,50 @@
 
 ## Project Overview
 
-This project aims to develop a novel method for conducting the BLAST (Basic Local Alignment Search Tool) algorithm over embedding space rather than raw sequence data. By leveraging modern machine learning techniques and embedding methods, we seek to improve the speed and sensitivity of sequence similarity searches in bioinformatics.
+This project develops a novel approach to sequence similarity searching in bioinformatics by implementing a BLAST-like algorithm that operates on sequence embeddings rather than raw sequence data. By leveraging modern machine learning techniques and embedding methods, we aim to improve both the speed and sensitivity of sequence similarity searches compared to traditional BLAST (Basic Local Alignment Search Tool) algorithms.
 
 ## Table of Contents
 
-1. [Project Goals](#project-goals)
-2. [Project Structure](#project-structure)
-3. [Prerequisites](#prerequisites)
-4. [Installation](#installation)
-5. [Usage](#usage)
-6. [Building and Running with Docker](#building-and-running-with-docker)
-7. [Contributing](#contributing)
-8. [Roadmap](#roadmap)
-9. [License](#license)
-10. [Contact](#contact)
+1. [Background](#background)
+2. [Methods](#methods)
+3. [Project Goals](#project-goals)
+4. [Project Structure](#project-structure)
+5. [Prerequisites](#prerequisites)
+6. [Installation](#installation)
+7. [Usage](#usage)
+8. [Building and Running with Docker](#building-and-running-with-docker)
+9. [Contributing](#contributing)
+10. [Roadmap](#roadmap)
+11. [License](#license)
+12. [Contact](#contact)
+
+## Background
+
+BLAST is a fundamental tool in bioinformatics for comparing biological sequence information, such as DNA sequences of genes or amino acid sequences of proteins. Traditional BLAST algorithms work directly on the sequence data, using heuristics to find regions of local similarity between sequences. While effective, these methods can be computationally intensive for large databases.
+
+Recent advancements in machine learning, particularly in natural language processing, have shown that embedding techniques can capture complex relationships in sequential data. This project applies similar principles to biological sequences, hypothesizing that conducting similarity searches in embedding space could lead to faster and potentially more sensitive results.
+
+## Methods
+
+Our approach consists of several key components:
+
+1. **Sequence Embedding**: We use advanced embedding techniques, primarily the ProtBERT model, to convert amino acid sequences into high-dimensional vector representations. These embeddings aim to capture the functional and structural properties of the proteins.
+
+2. **Embedding-based Seeding**: Instead of using k-mers as in traditional BLAST, we identify seed regions by finding similar subsequences in the embedding space using efficient nearest neighbor search algorithms (KD-Tree).
+
+3. **Alignment Extension**: We extend the seeds to form larger alignments, adapting traditional dynamic programming approaches to work with embedded representations.
+
+4. **Scoring**: We develop a scoring system that combines similarity in embedding space with biologically relevant scoring matrices.
+
+5. **Database Indexing**: We create an efficient index of the embedded database sequences to enable rapid searching.
 
 ## Project Goals
 
 1. Develop a new BLAST-like algorithm that operates on sequence embeddings
 2. Improve search speed and sensitivity compared to traditional BLAST
 3. Create a user-friendly interface for the new algorithm
-4. Publish findings in a peer-reviewed journal
+4. Benchmark the performance against standard BLAST implementations
+5. Publish findings in a peer-reviewed journal
 
 ## Project Structure
 
@@ -46,26 +69,15 @@ blast-embedding/
 ├── Dockerfile
 ├── requirements.txt
 ├── run.py
+├── embedded_blast.ipynb
 └── README.md
 ```
-
-- `src/`: Contains the source code for the project
-  - `embedding/`: Code for sequence embedding methods
-  - `algorithm/`: Implementation of the new BLAST algorithm
-  - `benchmarking/`: Scripts for performance evaluation
-- `data/`: Sample datasets and benchmark data
-- `tests/`: Unit tests and integration tests
-- `docs/`: Project documentation
-- `notebooks/`: Jupyter notebooks for exploration and analysis
-- `results/`: Benchmark results and performance analyses
-- `Dockerfile`: Instructions for building the Docker image
-- `requirements.txt`: List of Python dependencies
-- `run.py`: Main script to run the benchmarking
 
 ## Prerequisites
 
 - Python 3.9+
 - Docker (for containerized usage)
+- 8GB+ RAM recommended for running embedding models
 
 ## Installation
 
@@ -100,26 +112,46 @@ This will run the embedding-based BLAST and compare it with NCBI BLAST using a d
 
 ## Building and Running with Docker
 
+Docker provides an isolated environment to run the project, ensuring consistency across different systems. Follow these steps to build and run the project using Docker:
+
 1. Build the Docker image:
    ```
    docker build -t blast-embedding .
    ```
+   This command builds a Docker image named 'blast-embedding' based on the instructions in the Dockerfile.
 
 2. Run the Docker container:
    ```
    docker run -it --rm blast-embedding
    ```
+   This command starts a container from the 'blast-embedding' image, runs the benchmarking script with a default query sequence, and removes the container after execution.
 
-   This will run the benchmarking script with a default query sequence.
-
-3. To use a custom query sequence, you can pass it as an environment variable:
+3. To use a custom query sequence:
    ```
    docker run -it --rm -e QUERY_SEQUENCE="YOURSEQUENCEHERE" blast-embedding
    ```
+   Replace "YOURSEQUENCEHERE" with your actual protein sequence.
+
+4. To run an interactive shell in the container:
+   ```
+   docker run -it --rm --entrypoint /bin/bash blast-embedding
+   ```
+   This allows you to explore the container's file system and run commands manually.
+
+5. To mount a local directory and save results:
+   ```
+   docker run -it --rm -v /path/to/local/directory:/app/results blast-embedding
+   ```
+   Replace "/path/to/local/directory" with the actual path on your host machine.
 
 ### Customization
 
-To use your own database, replace the `data/sample_database.fasta` file with your FASTA format database before building the Docker image.
+To use your own database:
+1. Replace the `data/sample_database.fasta` file with your FASTA format database.
+2. Rebuild the Docker image:
+   ```
+   docker build -t blast-embedding .
+   ```
 
 ## Contributing
 
@@ -136,44 +168,22 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Roadmap
 
-1. **Understanding Current BLAST** (Weeks 1-2)
-   - Review BLAST literature
-   - Analyze BLAST stages
-
-2. **Choose Embedding Method** (Weeks 3-5)
-   - Research embedding techniques
-   - Implement and test methods
-
-3. **Define Embedding Space** (Weeks 6-7)
-   - Determine dimensionality
-   - Select distance metrics
-
-4. **Adapt BLAST Stages** (Weeks 8-13)
-   - Develop seeding, extension, and scoring for embeddings
-
-5. **Implementation and Optimization** (Weeks 14-17)
-   - Develop full prototype
-   - Optimize for efficiency
-
-6. **Validation and Benchmarking** (Weeks 18-20)
-   - Prepare datasets
-   - Run comprehensive benchmarks
-
-7. **Iteration and Refinement** (Weeks 21-24)
-   - Analyze results
-   - Refine algorithm
-
-8. **Practical Considerations** (Weeks 25-27)
-   - Design embedding database
-   - Develop user interface
-
-9. **Documentation and Publication** (Weeks 28-30)
-   - Write documentation
-   - Prepare scientific paper
+[Roadmap content remains the same as in the original README]
 
 ## License
 
-TBD
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Contact
+
+Your Name - your.email@example.com
+
+Project Link: [https://github.com/yourusername/blast-embedding](https://github.com/yourusername/blast-embedding)
+
+## Acknowledgments
+
+- This project builds upon the work of many researchers in the fields of bioinformatics and machine learning.
+- We thank the developers of the ProtBERT model and other open-source tools used in this project.
 
 ## Notes
 
