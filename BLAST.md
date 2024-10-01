@@ -109,7 +109,7 @@
    - Embarrassingly parallel across different queries
    - Can be parallelized for single queries using techniques like GPU acceleration
 
-## Conclusion
+## Take-Aways
 
 Understanding these aspects of the current BLAST algorithm provides a solid foundation for developing a new method using embedding space. Key areas to focus on for improvement include:
 
@@ -117,5 +117,3 @@ Understanding these aspects of the current BLAST algorithm provides a solid foun
 2. Extension: Can embeddings provide a more nuanced way to extend matches beyond simple linear extension?
 3. Scoring: How can similarity in embedding space be translated into biologically meaningful scores?
 4. Statistical Significance: What new statistical models might be needed for embedding-based alignments?
-
-By addressing these questions, your new method has the potential to significantly advance the field of sequence similarity search.
