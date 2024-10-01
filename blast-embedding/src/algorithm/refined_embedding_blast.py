@@ -8,10 +8,13 @@ def generate_query_subseq_embeddings(query, window_size, step_size, embed_func):
 
 def find_seeds(query_embeddings, database_embeddings, threshold):
     db_ids, db_embeds = zip(*database_embeddings.items())
+    db_embeds = np.array(db_embeds)
+    if db_embeds.ndim == 1:
+        db_embeds = db_embeds.reshape(-1, 1)
     tree = KDTree(db_embeds)
     seeds = []
     for i, q_embed in enumerate(query_embeddings):
-        distances, indices = tree.query([q_embed], k=10)  # Get top 10 closest matches
+        distances, indices = tree.query([q_embed], k=5)  # Get top 5 closest matches
         for dist, idx in zip(distances[0], indices[0]):
             if dist < threshold:
                 seeds.append((i, db_ids[idx], dist))

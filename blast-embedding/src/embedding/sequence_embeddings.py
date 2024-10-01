@@ -9,7 +9,7 @@ def generate_protein_embeddings(sequence, model_type='ProtBERT'):
         model = BertModel.from_pretrained("Rostlab/prot_bert")
         inputs = tokenizer(sequence, return_tensors='pt')
         outputs = model(**inputs)
-        embeddings = outputs.last_hidden_state.mean(dim=1).detach().numpy()
+        embeddings = outputs.last_hidden_state.mean(dim=1).squeeze().detach().numpy()
     elif model_type == 'ProtVec':
         # Assuming ProtVec model is pre-trained and loaded
         protvec_model = Word2Vec.load('path_to_protvec_model')
