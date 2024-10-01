@@ -8,12 +8,14 @@ This project aims to develop a novel method for conducting the BLAST (Basic Loca
 
 1. [Project Goals](#project-goals)
 2. [Project Structure](#project-structure)
-3. [Installation](#installation)
-4. [Usage](#usage)
-5. [Contributing](#contributing)
-6. [Roadmap](#roadmap)
-7. [License](#license)
-8. [Contact](#contact)
+3. [Prerequisites](#prerequisites)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [Building and Running with Docker](#building-and-running-with-docker)
+7. [Contributing](#contributing)
+8. [Roadmap](#roadmap)
+9. [License](#license)
+10. [Contact](#contact)
 
 ## Project Goals
 
@@ -30,14 +32,20 @@ The repository is organized as follows:
 blast-embedding/
 ├── src/
 │   ├── embedding/
+│   │   └── sequence_embeddings.py
 │   ├── algorithm/
-│   ├── benchmarking/
-│   └── interface/
-├── tests/
+│   │   └── refined_embedding_blast.py
+│   └── benchmarking/
+│       └── blast_comparison.py
 ├── data/
+│   └── sample_database.fasta
+├── tests/
 ├── docs/
 ├── notebooks/
 ├── results/
+├── Dockerfile
+├── requirements.txt
+├── run.py
 └── README.md
 ```
 
@@ -45,16 +53,21 @@ blast-embedding/
   - `embedding/`: Code for sequence embedding methods
   - `algorithm/`: Implementation of the new BLAST algorithm
   - `benchmarking/`: Scripts for performance evaluation
-  - `interface/`: User interface code
-- `tests/`: Unit tests and integration tests
 - `data/`: Sample datasets and benchmark data
+- `tests/`: Unit tests and integration tests
 - `docs/`: Project documentation
 - `notebooks/`: Jupyter notebooks for exploration and analysis
 - `results/`: Benchmark results and performance analyses
+- `Dockerfile`: Instructions for building the Docker image
+- `requirements.txt`: List of Python dependencies
+- `run.py`: Main script to run the benchmarking
+
+## Prerequisites
+
+- Python 3.9+
+- Docker (for containerized usage)
 
 ## Installation
-
-(Note: As this is a research project in progress, installation instructions will be updated as the project develops.)
 
 To set up the development environment:
 
@@ -77,7 +90,36 @@ To set up the development environment:
 
 ## Usage
 
-(Detailed usage instructions will be provided as the project progresses.)
+To run the benchmarking script locally:
+
+```
+python run.py
+```
+
+This will run the embedding-based BLAST and compare it with NCBI BLAST using a default query sequence.
+
+## Building and Running with Docker
+
+1. Build the Docker image:
+   ```
+   docker build -t blast-embedding .
+   ```
+
+2. Run the Docker container:
+   ```
+   docker run -it --rm blast-embedding
+   ```
+
+   This will run the benchmarking script with a default query sequence.
+
+3. To use a custom query sequence, you can pass it as an environment variable:
+   ```
+   docker run -it --rm -e QUERY_SEQUENCE="YOURSEQUENCEHERE" blast-embedding
+   ```
+
+### Customization
+
+To use your own database, replace the `data/sample_database.fasta` file with your FASTA format database before building the Docker image.
 
 ## Contributing
 
@@ -133,6 +175,6 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 TBD
 
-## Contact
+## Notes
 
-Project Link: [https://github.com/In-Vivo-Group/embedded-blast](https://github.com/In-Vivo-Group/embedded-blast)
+This is a research project and the embedding-based BLAST is a proof-of-concept. It may not be as comprehensive or accurate as established BLAST implementations. The project is designed to explore new approaches to sequence similarity search and may evolve significantly as research progresses.

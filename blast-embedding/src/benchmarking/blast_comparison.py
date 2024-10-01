@@ -39,21 +39,3 @@ def compare_results(ncbi_results, embedding_results):
     print(f"Embedding BLAST only: {len(embedding_only)}")
     
     return len(common_hits) / len(ncbi_hits) if ncbi_hits else 0
-
-if __name__ == "__main__":
-    query = "MVLSEGEWQLVLHVWAKVEADVAGHGQDILIRLFKSHPETLEKFDRFKHLKTEAEMKASEDLKKHGVTVLTALGAILKKKGHHEAELKPLAQSHATKHKIPIKYLEFISEAIIHVLHSRHPGNFGADAQGAMNKALELFRKDIAAKYKELGYQG"
-    database_file = "path_to_database.fasta"
-    
-    print("Running NCBI BLAST...")
-    ncbi_results, ncbi_time = run_ncbi_blast(query, database_file)
-    print(f"NCBI BLAST completed in {ncbi_time:.2f} seconds")
-    
-    print("\nRunning Embedding-based BLAST...")
-    embedding_results, embedding_time = run_embedding_blast(query, database_file)
-    print(f"Embedding-based BLAST completed in {embedding_time:.2f} seconds")
-    
-    print("\nComparing results...")
-    sensitivity = compare_results(ncbi_results, embedding_results)
-    print(f"Sensitivity (proportion of NCBI BLAST hits found): {sensitivity:.2f}")
-    
-    print(f"\nSpeed comparison: Embedding-based BLAST was {ncbi_time / embedding_time:.2f}x faster")
